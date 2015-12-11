@@ -6,6 +6,7 @@ import sys
 import os
 import csv
 import json
+import datetime
 
 null = None
 
@@ -38,11 +39,18 @@ SUFFIX_LENT = 'Quad'
 SUFFIX_EASTER = 'Pasch'
 SUFFIX_YEAR = ''
 
-saintKeys = []
-proprium  = []
-
 saint_template  = '{"key":"%s","title":"%s","en":"%s"}'
 proper_template = '"%s": %s'
+
+def get_suffixes(parts):
+    suffixes = []
+    if len(parts['Graduale']) > 0 and len(parts['Alleluia']) > 0:
+        suffixes.append(SUFFIX_YEAR)
+    if len(parts['Tractus']) > 0:
+        suffixes.append(SUFFIX_LENT)
+    if len(parts['Alleluia PT']) > 0:
+        suffixes.append(SUFFIX_EASTER)
+    return suffixes
 
 def proprium_string(key, suffix, parts):
 
@@ -68,8 +76,19 @@ def proprium_string(key, suffix, parts):
 def proprium_strings(key, suffixes, parts):
     return [proprium_string(key + (suffix if len(suffixes) > 0 else ''), suffix, parts) for suffix in suffixes]
 
+def saint_title_cmp(x, y):
+    x = datetime.datetime.strptime(x.partition(':')[0].partition(' or ')[0], '%b %d')
+    y = datetime.datetime.strptime(y.partition(':')[0].partition(' or ')[0], '%b %d')
+    if x < y:
+        return -1
+    if x > y:
+        return  1
+    return  0
+
 headers = None
 rows    = []
+propers = {}
+saints  = {}
 f = open('proper of saints.csv','rb')
 for row in csv.reader(f):
     if headers is None:
@@ -79,6 +98,9 @@ for row in csv.reader(f):
         feast = row[headers['Feast']].strip()
         if len(feast) > 0:
 
+            date  = row[headers['Date']].strip()
+            key   = date.replace(" ", "")
+            title = "%s: %s" % (date, feast)
             parts = dict([(p, row[headers[p]].strip()) for p in ['Introitus',
                                                                  'Graduale',
                                                                  'Tractus',
@@ -86,23 +108,26 @@ for row in csv.reader(f):
                                                                  'Alleluia PT',
                                                                  'Offertorium',
                                                                  'Communio']])
-            suffixes = []
-            if len(parts['Graduale']) > 0 and len(parts['Alleluia']) > 0:
-                suffixes.append(SUFFIX_YEAR)
-            if len(parts['Tractus']) > 0:
-                suffixes.append(SUFFIX_LENT)
-            if len(parts['Alleluia PT']) > 0:
-                suffixes.append(SUFFIX_EASTER)
-
-            date  = row[headers['Date']].strip()
-            title = "%s: %s" % (date, feast)
-            en    = title + ('' if len(suffixes) > 0 else ' (TODO)')
-            key   = date.replace(" ", "")
-            saintKeys.append(saint_template % (key,title,en))
-
-            proprium.extend([proprium_string(key + (suffix if len(suffixes) > 1 else ''), suffix, parts) for suffix in suffixes])
+            if len(''.join(parts.values())) > 0:
+                for k, v in propers.items():
+                    if v==parts:
+                        key = k
+            propers[key]  = parts
+            saints[title] = key
 
 f.close()
+
+saintKeys = []
+for title in sorted(saints.keys(),cmp=saint_title_cmp):
+    key = saints[title]
+    en  = title + ('' if len(get_suffixes(propers[key])) > 0 else ' (TODO)')
+    saintKeys.append(saint_template % (key,title,en))
+
+proprium = []
+for key in sorted(propers.keys()):
+    parts    = propers[key]
+    suffixes = get_suffixes(parts)
+    proprium.extend([proprium_string(key + (suffix if len(suffixes) > 1 else ''), suffix, parts) for suffix in suffixes])
 
 f = open('propersdata.js','r')
 propersdata_js = f.readlines()
@@ -111,15 +136,15 @@ f = open('propersdata.js','w')
 
 echo_lines = True
 for line in propersdata_js:
-	if 'END_GEN' in line:
-		echo_lines = True
-	if echo_lines:
-		f.write(line)
-	if 'START_' in line:
-		echo_lines = False
-		if 'saintKeys' in line:
-			f.write("    %s\n" % ',\n    '.join(saintKeys))
-		elif 'proprium' in line:
-			f.write("    %s\n" % ',\n    '.join(proprium))
+    if 'END_GEN' in line:
+        echo_lines = True
+    if echo_lines:
+        f.write(line)
+    if 'START_' in line:
+        echo_lines = False
+        if 'saintKeys' in line:
+            f.write("    %s\n" % ',\n    '.join(saintKeys))
+        elif 'proprium' in line:
+            f.write("    %s\n" % ',\n    '.join(proprium))
 
 f.close()
