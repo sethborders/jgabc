@@ -1,0 +1,66 @@
+Sourced from:,http://maternalheart.org/propers-saints.html,https://bbloomf.github.io/jgabc/propers.html,,,,,,,,
+NOTE: the incipit name used to specify each proper might not match that which is specified in the Liber. It must match what ever you type into the custom fields of the propers tool,,,,,,,,,,
+Key,Feast Latin,Feast English,Introitus,Graduale,Tractus,Alleluia,Alleluia PT,Sequentia,Offertorium,Communio
+Adv1,I Adventus,1st Sunday in Advent,132,1169,,1115,,,962,1036
+Adv2,II Adventus,2nd Sunday in Advent,356,1268,,292,,,631,966
+Adv3,III Adventus,3rd Sunday in Advent,1225,1007,,855,,,113,218
+Adv4,IV Adventus,4th Sunday in Advent,79,284,,224,,,210,1144
+NatEve,pridie Nativitas,Christmas Eve,150,202,,167,,,171,367
+NatMD,"Nativitas Domini, Missa ad media noctem",The Nativity of our Lord (Christmas) Mass at Midnight,1175,518,,890,,,811,117
+NatMane,"Nativitas Domini, Missa ad matutinam","Christmas, Mass at dawn",917,217,,714,,,979,1125
+NatInterdiu,"Nativitas Domini, Missa interdiu","Christmas, Mass during the day",72,1163,,324,,,1274,1139
+Nat1,*Circumcisione Domini,Sunday within the octave of Christmas,564,1308,,714,,,979,1282
+Jan1,Octava Nativitatis,Octave day of Christmas (Jan 1.),72,1163,,863,,,1274,1139
+Nat2,*Octava St Stephani,Sunday preceding the Epiphany (Holy Name of Jesus),1033,670,,1,,,980,8
+Epi,Epiphania,Epiphany,403,205,,524,,,1147,918
+Epi1,I post Epiphaniam,1st Sunday after Epiphany (Holy Family),336,260,,816,,,93,626
+Epi2,II post Epiphaniam,2nd Sunday after Epiphany,13,932,,538,,,937,230
+Epi3,"III (IV, V, et VI quoque) post Epiphaniam","3rd (also 4th, 5th, and 6th) Sunday after Epiphany",1123,1173,,1001,,,47,1148
+Quadp1,Septuagesimæ,Septuagesima,1168,222,926,,,,1194,640
+Quadp2,Sexagesimæ,Sexagesima,529,1265,1178,,,,265,554
+Quadp3,Quinquegesimæ,Quiquagesima,1381,850,1299,,,,1317,677
+Quad1,I in Quadragesima,1st Sunday in Lent,327,834,889,,,,294,1100
+Quad2,II in Quadragesima,2nd Sunday in Lent,1294,596,455,,,,1624,373
+Quad3,III in Quadragesima,3rd Sunday in Lent,916,1298,1329,,,,591,1090
+Quad3m,Feria II post Dominica III Quadragesime,Monday in the 3rd week of Lent,839,118,425,,,,842,931
+Quad4,IV in Quadragesima,4th Sunday in Lent,653,1011,1377,,,,899,1353
+Quad4m,Feria II post Dominica IV Quadragesime,Monday in the 4th week of Lent,458,886,425,,,,718,1210
+Quad5,Passionis,Passion Sunday,78,760,742,,,,318,726
+Quad5m,Feria II in Passionis,Monday in Passion Week,38,621,425,,,,848,81
+Quad6,*Dominica in Palmis,Palm Sunday,1171,49,372,,,,1531,650
+Quad6m,Feria II Hebdomadae Sancte,Monday in Holy Week,226,783,425,,,,411,196
+Pasc0,*Dominica Resurrectionis,Easter Sunday,1043,1075,,761,,1086,725,952
+Pasc1,I post Oct Pasche,Low Sunday (The Octave of Easter),25,1042,,275,,,789,953
+Pasc2,II post Oct Pasche,2nd Sunday after Easter,135,912,,1220,,,924,1549
+Pasc3,III post Oct Pasche,3rd Sunday after Easter,536,1341,,446,,,668,813
+Pasc4,IV post Oct Pasche,4th Sunday after Easter,42,159,,1348,,,937,39
+Pasc5,V post Oct Pasche,5th Sunday after Easter,585,633,,1040,,,860,579
+Asc,Ascensio,Ascension Thursday,1355,17,,57,,,211,263
+Pasc6,in Octavam Ascensione Domini,Sunday within the octave of the Ascension,990,405,,107,,,211,1091
+Pasc7,*Dominica Pentecostes,Pentecost (Whitsunday),1644,,,99,veni sancte spiritus,68,361,1041
+Pent01,Sanctissimæ Trinitatis,Trinity Sunday,349,965,,1289,,,1303,391
+CorpusChristi,Corpus Christi,Corpus Christi,715,1230,,774,,308,645,577
+Pent02,infra Octavam Sme Corporis Christi,Sunday within the octave of Corpus Christi (2nd after Pentecost),1111,697,,801,,,848,794
+SCJ,Sacratissimum Cor Jesu,Most Sacred Heart of Jesus,1320,1035,,907,,,628,1356
+Pent03,infra Octavam Sme Cordis Jesu,3rd Sunday after Pentecost,1235,423,,1264,,,1328,1058
+Pent04,4 post Pentecostem,4th Sunday after Pentecost,874,332,,727,,,708,512
+Pent05,5 post Pentecostem,5th Sunday after Pentecost,396,1226,,797,,,143,574
+Pent06,6 post Pentecostem,6th Sunday after Pentecost,522,1046,,239,,,265,1079
+Pent07,7 post Pentecostem,7th Sunday after Pentecost,1136,1022,,77,,,675,339
+Pent08,8 post Pentecostem,8th Sunday after Pentecost,1254,886,,709,,,1080,1203
+Pent09,9 post Pentecostem,9th Sunday after Pentecost,1357,1205,,879,,,591,798
+Pent10,10 post Pentecostem,10th Sunday after Pentecost,299,1088,,1052,,,962,1221
+Pent11,11 post Pentecostem,11th Sunday after Pentecost,1026,865,,580,,,648,1145
+Pent12,12 post Pentecostem,12th Sunday after Pentecost,501,1182,,1082,,,325,1245
+Pent13,13 post Pentecostem,13th Sunday after Pentecost,691,1232,,820,,,967,388
+Pent14,14 post Pentecostem,14th Sunday after Pentecost,1071,547,,1246,,,747,868
+Pent15,15 post Pentecostem,15th Sunday after Pentecost,1165,1338,,1352,,,182,782
+Pent16,16 post Pentecostem,16th Sunday after Pentecost,335,1173,,1077,,,993,1318
+Pent17,17 post Pentecostem,17th Sunday after Pentecost,1284,1044,,595,,,652,1134
+Pent18,18 post Pentecostem,18th Sunday after Pentecost,172,1011,,1097,,,838,404
+Pent19,19 post Pentecostem,19th Sunday after Pentecost,389,44,,1192,,,616,479
+Pent20,20 post Pentecostem,20th Sunday after Pentecost,1056,1230,,745,,,812,696
+Pent21,21 post Pentecostem,21st Sunday after Pentecost,1047,1108,,1380,,,1363,1290
+Pent22,22 post Pentecostem,22nd Sunday after Pentecost,1271,614,,933,,,67,464
+Pent23,23 (usque ad postrema) post Pentecostem,23rd (through last) Sunday after Pentecost,735,395,,331,,,986,592
+ChristusRex,Domini Nostri Jesu Christi Regis,"Feast of Our Lord Jesus Christ, King",128,583,,746,,,390,1229

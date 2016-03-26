@@ -92,7 +92,7 @@ headers = None
 rows    = []
 propers = {}
 saints  = {}
-f = open('proper of saints.csv','rb')
+f = open('propersdata = siants.csv','rb')
 for row in csv.reader(f):
     if headers is None:
         if '' not in row:
