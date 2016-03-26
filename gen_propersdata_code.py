@@ -24,6 +24,8 @@ chantID = {
 
 def get_part_id(d,i):
     d = chantID[d]
+    if i.isdigit():
+        return i
     if ' ps. ' in i:
         i = i.split(' ps. ')
         d = d[i[0]]['psalm'][i[1]]
@@ -38,7 +40,7 @@ SUFFIX_LENT = 'Quad'
 SUFFIX_EASTER = 'Pasch'
 SUFFIX_YEAR = ''
 
-saint_template  = '{"key":"%s","title":"%s","en":"%s"}'
+feast_template  = '{"key":"%s","title":"%s","en":"%s"}'
 proper_template = '"%s": %s'
 
 def get_suffixes(parts):
@@ -67,13 +69,13 @@ def proprium_string(key, suffix, parts):
         ids["gradualeID"] = get_part_id('graduale',parts["Graduale"])
         ids["alleluiaID"] = get_part_id('alleluia',parts["Alleluia"])
 
+    if len(parts["Sequentia"]) > 0:
+        ids["sequentiaID"] = get_part_id('sequentia',parts["Sequentia"])
+
     ids["offertoriumID"] = get_part_id('offertorium',parts["Offertorium"])
     ids["communioID"]    = get_part_id('communio',parts["Communio"])
 
     return proper_template % (key, json.dumps(ids))
-
-def proprium_strings(key, suffixes, parts):
-    return [proprium_string(key + (suffix if len(suffixes) > 0 else ''), suffix, parts) for suffix in suffixes]
 
 def datetime_from_title(t):
     t = t.replace('Last Sat', '31').partition(':')[0].partition(' or ')[0]
@@ -88,43 +90,51 @@ def saint_title_cmp(x, y):
         return  1
     return  0
 
-headers = None
-rows    = []
+def get_feasts_propers(csv_file, propers_dict):
+    feastKeys = []
+
+    headers = None
+    f = open(csv_file,'rb')
+    for row in csv.reader(f):
+        if headers is None:
+            if '' not in row:
+                headers = dict([(col, i) for i, col in enumerate(row)])
+        else:
+            feast_latin = row[headers['Feast Latin']].strip()
+            if len(feast_latin) > 0:
+
+                if 'Date' in headers:
+                    date  = row[headers['Date']].strip()
+                    key   = date.replace(" ", "")
+                    title = "%s: %s" % (date, feast_latin)
+                    en    = "%s: %s" % (date, row[headers['Feast English']].strip())
+                else:
+                    key   = row[headers['Key']].strip()
+                    title = feast_latin
+                    en    = row[headers['Feast English']].strip()
+                    
+
+                parts = dict([(p, row[headers[p]].strip()) for p in ['Introitus',
+                                                                     'Graduale',
+                                                                     'Tractus',
+                                                                     'Alleluia',
+                                                                     'Alleluia PT',
+                                                                     'Sequentia',
+                                                                     'Offertorium',
+                                                                     'Communio']])
+                if len(''.join(parts.values())) > 0:
+                    for k, v in propers_dict.items():
+                        if v==parts:
+                            key = k
+                propers_dict[key] = parts
+
+                feastKeys.append(feast_template % (key,title,en))
+    f.close()
+    return feastKeys
+
 propers = {}
-saints  = {}
-f = open('propersdata = siants.csv','rb')
-for row in csv.reader(f):
-    if headers is None:
-        if '' not in row:
-            headers = dict([(col, i) for i, col in enumerate(row)])
-    else:
-        feast = row[headers['Feast']].strip()
-        if len(feast) > 0:
-
-            date  = row[headers['Date']].strip()
-            key   = date.replace(" ", "")
-            title = "%s: %s" % (date, feast)
-            parts = dict([(p, row[headers[p]].strip()) for p in ['Introitus',
-                                                                 'Graduale',
-                                                                 'Tractus',
-                                                                 'Alleluia',
-                                                                 'Alleluia PT',
-                                                                 'Offertorium',
-                                                                 'Communio']])
-            if len(''.join(parts.values())) > 0:
-                for k, v in propers.items():
-                    if v==parts:
-                        key = k
-            propers[key]  = parts
-            saints[title] = key
-
-f.close()
-
-saintKeys = []
-for title in sorted(saints.keys(),cmp=saint_title_cmp):
-    key = saints[title]
-    en  = title + ('' if len(get_suffixes(propers[key])) > 0 else ' (TODO)')
-    saintKeys.append(saint_template % (key,title,en))
+sundayKeys = get_feasts_propers('propersdata - sundays.csv', propers)
+saintKeys  = get_feasts_propers('propersdata - saints.csv', propers)
 
 proprium = []
 for key in sorted(propers.keys()):
@@ -145,6 +155,8 @@ for line in propersdata_js:
         f.write(line)
     if 'START_' in line:
         echo_lines = False
+        if 'sundayKeys' in line:
+            f.write("    %s\n" % ',\n    '.join(sundayKeys))
         if 'saintKeys' in line:
             f.write("    %s\n" % ',\n    '.join(saintKeys))
         elif 'proprium' in line:
